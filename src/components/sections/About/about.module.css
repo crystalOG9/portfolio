@@ -1,0 +1,364 @@
+/**
+ * About Section Stylesheet
+ * Reference: Hasnain Irfan's clean layout & "MY TOOLKIT" dual marquee
+ */
+
+.aboutSection {
+  position: relative;
+  width: 100%;
+  padding-top: clamp(4.5rem, 8vh, 7rem);
+  padding-bottom: clamp(4.5rem, 8vh, 7rem);
+  overflow: hidden;
+  z-index: var(--z-content, 20);
+}
+
+/* Background Atmosphere & Decorative Layers */
+.bgGlowViolet {
+  position: absolute;
+  top: 10%;
+  left: -10%;
+  width: clamp(350px, 45vw, 650px);
+  height: clamp(350px, 45vw, 650px);
+  background: radial-gradient(
+    circle,
+    rgba(147, 51, 234, 0.14) 0%,
+    rgba(147, 51, 234, 0.04) 45%,
+    transparent 70%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.bgGlowCyan {
+  position: absolute;
+  bottom: 12%;
+  right: -8%;
+  width: clamp(320px, 40vw, 550px);
+  height: clamp(320px, 40vw, 550px);
+  background: radial-gradient(
+    circle,
+    rgba(6, 182, 212, 0.09) 0%,
+    rgba(56, 189, 248, 0.03) 45%,
+    transparent 70%
+  );
+  filter: blur(85px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gridPattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 50%, #000 30%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 50%, #000 30%, transparent 95%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.topDivider {
+  position: absolute;
+  top: 0;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(147, 51, 234, 0.25) 30%,
+    rgba(6, 182, 212, 0.3) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 3;
+}
+
+/* Narrative Glass Panel */
+.narrativePanel {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(
+    140deg,
+    rgba(255, 255, 255, 0.035) 0%,
+    rgba(255, 255, 255, 0.012) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-2xl, 1.25rem);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  box-shadow: 
+    0 25px 50px -18px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s ease;
+}
+
+.narrativePanel:hover {
+  border-color: rgba(168, 85, 247, 0.25);
+}
+
+.narrativeBody {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+.paragraph {
+  color: #e2e8f0;
+  font-size: clamp(0.975rem, 1.05vw, 1.0625rem);
+  line-height: 1.85;
+  letter-spacing: -0.005em;
+  margin: 0;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+/* Actions Row */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: clamp(1.75rem, 2.5vw, 2.25rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  flex-wrap: wrap;
+}
+
+.talkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(147, 51, 234, 0.1) 100%);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.75rem 1.65rem;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.15);
+}
+
+.talkButton:hover {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.32) 0%, rgba(147, 51, 234, 0.22) 100%);
+  border-color: rgba(192, 132, 252, 0.75);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+  color: #ffffff;
+}
+
+.talkButtonArrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.talkButton:hover .talkButtonArrow {
+  transform: translateX(4px);
+}
+
+.statusChips {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.roleText {
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  font-family: var(--font-mono, monospace);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.roleText strong {
+  color: #f8fafc;
+  font-weight: 600;
+}
+
+.activeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #34d399;
+  font-size: 0.75rem;
+  font-family: var(--font-mono, monospace);
+  font-weight: 500;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.activeDot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+.activeDot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background-color: rgba(16, 185, 129, 0.4);
+  animation: beaconPulse 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes beaconPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* ========================================================
+   MY TOOLKIT SECTION (Exact styling from reference image)
+   ======================================================== */
+
+.toolkitSection {
+  margin-top: clamp(3.5rem, 6vh, 5rem);
+  width: 100%;
+}
+
+.toolkitHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolkitLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.toolkitLine {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.05) 70%,
+    transparent 100%
+  );
+}
+
+/* Marquee Outer Container with Edge Fades */
+.marqueeContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 7%,
+    black 93%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 7%,
+    black 93%,
+    transparent 100%
+  );
+  padding: 0.4rem 0;
+}
+
+/* Marquee Tracks */
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  user-select: none;
+}
+
+.marqueeRow1 {
+  animation: marqueeLeft 36s linear infinite;
+}
+
+.marqueeRow2 {
+  margin-top: 0.75rem;
+  animation: marqueeRight 42s linear infinite;
+}
+
+.marqueeContainer:hover .marqueeTrack {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Individual Toolkit Pill Badge */
+.toolkitPill {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.55rem 1.35rem;
+  border-radius: var(--radius-full, 9999px);
+  color: #e2e8f0;
+  font-size: clamp(0.8125rem, 0.9vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+}
+
+.toolkitPill:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,274 @@
+/**
+ * Intro Animation Stylesheet
+ * 
+ * Hardware-accelerated CSS animations for the premium opening sequence.
+ * Fully responsive, zero layout shift, and respects prefers-reduced-motion.
+ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background-color: #06030c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.5s ease;
+  user-select: none;
+}
+
+.overlayExiting {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Subtle cinematic dark vignette background */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(24, 12, 42, 0.6) 0%,
+    rgba(6, 3, 12, 0.96) 65%,
+    #06030c 100%
+  );
+  pointer-events: none;
+}
+
+/* Fine atmospheric grain */
+.grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+}
+
+/* Center Stage Container */
+.centerStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* -------------------------------------------------------------
+   STATE 2: Thin Horizontal Line
+   ------------------------------------------------------------- */
+.horizontalLine {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(147, 51, 234, 0.4) 15%,
+    #c084fc 40%,
+    #ffffff 50%,
+    #c084fc 60%,
+    rgba(147, 51, 234, 0.4) 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.65);
+  transform-origin: center center;
+  width: 0;
+  opacity: 0;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+}
+
+.horizontalLineActive {
+  width: clamp(220px, 32vw, 420px);
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------
+   STATE 3: "PIYUSH" Text
+   ------------------------------------------------------------- */
+.wordmarkWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.8rem;
+  overflow: hidden;
+}
+
+.wordmark {
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: 0.35em;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease,
+              letter-spacing 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 30px rgba(192, 132, 252, 0.4);
+}
+
+.wordmarkVisible {
+  opacity: 1;
+  letter-spacing: 0.16em;
+  transform: scale(1);
+}
+
+/* -------------------------------------------------------------
+   STATE 4: Subtle Light Sheen Pass
+   ------------------------------------------------------------- */
+.lightPass {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 45%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.6) 55%,
+    transparent 100%
+  );
+  transform: skewX(-24deg);
+  pointer-events: none;
+  opacity: 0;
+  left: -20%;
+}
+
+.lightPassActive {
+  opacity: 1;
+  animation: sweepPass 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes sweepPass {
+  0% {
+    left: -20%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------------------
+   STATE 5: Minimal Rectangular Frame
+   ------------------------------------------------------------- */
+.frame {
+  position: absolute;
+  border: 1px solid rgba(192, 132, 252, 0.65);
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.35);
+  pointer-events: none;
+  width: clamp(240px, 34vw, 440px);
+  height: 0;
+  opacity: 0;
+  transform-origin: center center;
+  transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease,
+              width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frameFormed {
+  height: clamp(80px, 12vh, 120px);
+  opacity: 1;
+}
+
+.frameExpanding {
+  width: 105vw;
+  height: 105vh;
+  border-color: rgba(192, 132, 252, 0.1);
+  box-shadow: 0 0 60px rgba(124, 58, 237, 0.1);
+  opacity: 0;
+}
+
+/* -------------------------------------------------------------
+   STATE 6: Blend with Header Navbar ("It looks sik")
+   The top border glides smoothly up to 65px (the sticky navbar)
+   and emits an electric accent pulse that docks with the header.
+   ------------------------------------------------------------- */
+.headerDockLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.6) 20%,
+    #ffffff 50%,
+    rgba(6, 182, 212, 0.6) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.8);
+  opacity: 0;
+  transform: translateY(0);
+  pointer-events: none;
+  transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease;
+}
+
+.headerDockLineActive {
+  opacity: 1;
+  /* Docks with the navbar bottom border at 65px */
+  transform: translateY(calc(-50vh + 65px));
+}
+
+/* Text ascending and fading toward header monogram */
+.wordmarkDocking {
+  opacity: 0;
+  transform: translateY(-40px) scale(0.85);
+  transition: opacity 0.4s ease,
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* -------------------------------------------------------------
+   RESPONSIVE DESIGN (Tablet & Mobile)
+   ------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .wordmark {
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    letter-spacing: 0.22em;
+  }
+  .horizontalLineActive {
+    width: 80vw;
+  }
+  .frame {
+    width: 84vw;
+  }
+  .headerDockLineActive {
+    transform: translateY(calc(-50vh + 55px));
+  }
+}
+
+/* -------------------------------------------------------------
+   ACCESSIBILITY: prefers-reduced-motion
+   ------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition: opacity 0.3s ease !important;
+  }
+  .horizontalLine,
+  .wordmark,
+  .frame,
+  .headerDockLine {
+    transition: none !important;
+    animation: none !important;
+  }
+}
