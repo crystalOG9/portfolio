@@ -6,10 +6,10 @@
 import type { SeoConfig } from "@/types";
 
 export const siteConfig: SeoConfig = {
-  title: "Piyush Pawar — Frontend & Creative Developer · AI & Automation",
+  title: "PIYUSH",
   description:
-    "Personal portfolio of Piyush Pawar. Building modern digital experiences across frontend engineering, interactive 3D, motion, and intelligent automation.",
+    "Personal portfolio of Piyush. Building modern digital experiences across frontend engineering, interactive 3D, motion, and intelligent automation.",
   url: "https://piyushpawar.dev",
-  siteName: "Piyush Pawar Portfolio",
+  siteName: "PIYUSH",
   locale: "en-US",
 };
