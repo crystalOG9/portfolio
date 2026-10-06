@@ -1,0 +1,180 @@
+/**
+ * Contact Section Stylesheet
+ * High-contrast, glassmorphic styling with clear input visibility
+ */
+
+.contactSection {
+  position: relative;
+  width: 100%;
+  padding-top: clamp(4.5rem, 8vh, 7rem);
+  padding-bottom: clamp(5rem, 9vh, 8rem);
+  overflow: hidden;
+  z-index: var(--z-content, 20);
+}
+
+.contentRow {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  gap: 2.5rem;
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 640px;
+}
+
+.formPanel {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-2xl, 1.25rem);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 
+    0 25px 50px -15px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.25s ease;
+}
+
+.formPanel:hover {
+  border-color: rgba(168, 85, 247, 0.35);
+}
+
+.formTitle {
+  font-size: clamp(1.2rem, 1.4vw, 1.35rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.formSubtitle {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.requiredStar {
+  color: #c084fc;
+}
+
+.inputField,
+.textareaField {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.85rem 1.15rem;
+  border-radius: var(--radius-md, 0.5rem);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  outline: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inputField::placeholder,
+.textareaField::placeholder {
+  color: #94a3b8;
+  opacity: 0.9;
+  font-size: 0.875rem;
+}
+
+.inputField:hover,
+.textareaField:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.26);
+}
+
+.inputField:focus,
+.textareaField:focus {
+  background-color: rgba(255, 255, 255, 0.07);
+  border-color: #a855f7;
+  box-shadow: 
+    0 0 0 3px rgba(168, 85, 247, 0.22),
+    0 0 16px rgba(168, 85, 247, 0.2);
+}
+
+.textareaField {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.formActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.directChannels {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.directEmailPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-full, 9999px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 0.8125rem;
+  font-family: var(--font-mono, monospace);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.directEmailPill:hover {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(192, 132, 252, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+}
+
+.locationBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #94a3b8;
+  font-size: 0.8125rem;
+  font-family: var(--font-mono, monospace);
+}

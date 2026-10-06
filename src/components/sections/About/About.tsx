@@ -92,36 +92,61 @@ export function About() {
             </div>
           </FadeIn>
 
-          {/* MY TOOLKIT Dual Marquee Section */}
+          {/* MY TOOLKIT Header */}
           <FadeIn delay={300}>
             <div className={styles.toolkitSection}>
               <div className={styles.toolkitHeader}>
                 <span className={styles.toolkitLabel}>My Toolkit</span>
                 <div className={styles.toolkitLine} />
               </div>
-
-              <div className={styles.marqueeContainer}>
-                {/* Row 1 - Flowing Left */}
-                <div className={`${styles.marqueeTrack} ${styles.marqueeRow1}`}>
-                  {[...TOOLKIT_ROW_1, ...TOOLKIT_ROW_1].map((item, idx) => (
-                    <span key={`row1-${idx}`} className={styles.toolkitPill}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Row 2 - Flowing Right */}
-                <div className={`${styles.marqueeTrack} ${styles.marqueeRow2}`}>
-                  {[...TOOLKIT_ROW_2, ...TOOLKIT_ROW_2].map((item, idx) => (
-                    <span key={`row2-${idx}`} className={styles.toolkitPill}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
           </FadeIn>
         </Container>
+
+        {/* MY TOOLKIT Dual Marquee Section - Continuous Edge-to-Edge */}
+        <FadeIn delay={350}>
+          <div className={styles.marqueeContainer}>
+            {/* Row 1 - Flowing Left */}
+            <div className={`${styles.marqueeTrack} ${styles.marqueeRow1}`}>
+              {Array.from({ length: 4 }).map((_, groupIdx) => (
+                <div
+                  key={`r1-group-${groupIdx}`}
+                  className={styles.marqueeGroup}
+                  aria-hidden={groupIdx > 0 ? "true" : undefined}
+                >
+                  {TOOLKIT_ROW_1.map((item, idx) => (
+                    <span
+                      key={`r1-${groupIdx}-${idx}`}
+                      className={styles.toolkitPill}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            {/* Row 2 - Flowing Right */}
+            <div className={`${styles.marqueeTrack} ${styles.marqueeRow2}`}>
+              {Array.from({ length: 4 }).map((_, groupIdx) => (
+                <div
+                  key={`r2-group-${groupIdx}`}
+                  className={styles.marqueeGroup}
+                  aria-hidden={groupIdx > 0 ? "true" : undefined}
+                >
+                  {TOOLKIT_ROW_2.map((item, idx) => (
+                    <span
+                      key={`r2-${groupIdx}-${idx}`}
+                      className={styles.toolkitPill}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

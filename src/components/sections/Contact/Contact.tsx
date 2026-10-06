@@ -4,13 +4,11 @@ import React, { useState } from "react";
 import { getPersonalInfo } from "@/data";
 import { Container, SectionHeader, Button } from "@/components/ui";
 import { FadeIn } from "@/components/animations";
+import styles from "./contact.module.css";
 
 /**
  * Contact Section Component
- * Phase 11 - Contact & Communication
- *
- * Provides direct communication channels, one-click email copying,
- * and quick social access with instant feedback.
+ * High-visibility styling with clear input visibility & direct channels
  */
 export function Contact() {
   const personal = getPersonalInfo();
@@ -31,7 +29,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="portfolio-section contact-section">
+    <section id="contact" className={`portfolio-section ${styles.contactSection}`}>
       <Container>
         <FadeIn delay={100}>
           <SectionHeader
@@ -41,54 +39,21 @@ export function Contact() {
           />
         </FadeIn>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            width: "100%",
-          }}
-        >
+        <div className={styles.contentRow}>
           {/* Message Form aligned to left corner */}
-          <FadeIn delay={200} style={{ width: "100%", maxWidth: "620px" }}>
-            <form
-              onSubmit={handleSubmit}
-              style={{
-                backgroundColor: "var(--bg-surface)",
-                border: "1px solid var(--border-subtle)",
-                borderRadius: "var(--radius-2xl)",
-                padding: "var(--space-8, 2rem)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--space-4, 1rem)",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: "var(--text-xl, 1.25rem)",
-                  fontWeight: "var(--font-bold, 700)",
-                  color: "var(--text-primary)",
-                  marginBottom: "var(--space-2, 0.5rem)",
-                }}
-              >
-                Send a Message
-              </h3>
-
+          <FadeIn delay={200} className={styles.formWrapper}>
+            <form onSubmit={handleSubmit} className={styles.formPanel}>
               <div>
-                <label
-                  htmlFor="contact-name"
-                  style={{
-                    display: "block",
-                    fontSize: "var(--text-xs, 0.75rem)",
-                    fontFamily: "var(--font-mono)",
-                    color: "var(--text-muted)",
-                    marginBottom: "var(--space-1, 0.25rem)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Your Name
+                <h3 className={styles.formTitle}>Send a Message</h3>
+                <p className={styles.formSubtitle}>
+                  Have an idea, project, or question? Send a message and I&apos;ll get back to you promptly.
+                </p>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="contact-name" className={styles.fieldLabel}>
+                  <span>Your Name</span>
+                  <span className={styles.requiredStar}>*</span>
                 </label>
                 <input
                   id="contact-name"
@@ -98,33 +63,15 @@ export function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  placeholder="Alex Morgan"
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem 1rem",
-                    borderRadius: "var(--radius-md)",
-                    backgroundColor: "var(--bg-secondary)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-primary)",
-                    fontSize: "var(--text-sm, 0.875rem)",
-                    outline: "none",
-                  }}
+                  placeholder="Enter your name"
+                  className={styles.inputField}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="contact-email"
-                  style={{
-                    display: "block",
-                    fontSize: "var(--text-xs, 0.75rem)",
-                    fontFamily: "var(--font-mono)",
-                    color: "var(--text-muted)",
-                    marginBottom: "var(--space-1, 0.25rem)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Your Email
+              <div className={styles.formGroup}>
+                <label htmlFor="contact-email" className={styles.fieldLabel}>
+                  <span>Your Email</span>
+                  <span className={styles.requiredStar}>*</span>
                 </label>
                 <input
                   id="contact-email"
@@ -134,33 +81,15 @@ export function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  placeholder="alex@example.com"
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem 1rem",
-                    borderRadius: "var(--radius-md)",
-                    backgroundColor: "var(--bg-secondary)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-primary)",
-                    fontSize: "var(--text-sm, 0.875rem)",
-                    outline: "none",
-                  }}
+                  placeholder="Enter your email address"
+                  className={styles.inputField}
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="contact-message"
-                  style={{
-                    display: "block",
-                    fontSize: "var(--text-xs, 0.75rem)",
-                    fontFamily: "var(--font-mono)",
-                    color: "var(--text-muted)",
-                    marginBottom: "var(--space-1, 0.25rem)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Message
+              <div className={styles.formGroup}>
+                <label htmlFor="contact-message" className={styles.fieldLabel}>
+                  <span>Message</span>
+                  <span className={styles.requiredStar}>*</span>
                 </label>
                 <textarea
                   id="contact-message"
@@ -170,25 +99,26 @@ export function Contact() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  placeholder="Hi Piyush, I would like to discuss a project..."
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem 1rem",
-                    borderRadius: "var(--radius-md)",
-                    backgroundColor: "var(--bg-secondary)",
-                    border: "1px solid var(--border-subtle)",
-                    color: "var(--text-primary)",
-                    fontSize: "var(--text-sm, 0.875rem)",
-                    outline: "none",
-                    resize: "vertical",
-                  }}
+                  placeholder="Type your message here..."
+                  className={styles.textareaField}
                 />
               </div>
 
-              <div style={{ marginTop: "var(--space-2, 0.5rem)" }}>
+              <div className={styles.formActions}>
                 <Button type="submit" size="md">
                   {submitted ? "Launching Mail Client..." : "Send Message ↗"}
                 </Button>
+
+                <div className={styles.directChannels}>
+                  <a
+                    href={`mailto:${personal.email}`}
+                    className={styles.directEmailPill}
+                    title="Send email directly"
+                  >
+                    <span>✉</span>
+                    <span>{personal.email}</span>
+                  </a>
+                </div>
               </div>
             </form>
           </FadeIn>

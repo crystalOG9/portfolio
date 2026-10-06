@@ -175,37 +175,27 @@ export function Hero() {
           <FadeIn delay={660} direction="up">
             <div className={styles.metadataRow}>
               <span>{personal.location}</span>
-              <span className={styles.metadataDivider}>•</span>
-              <a
-                href={personal.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-link"
-              >
-                GitHub ↗
-              </a>
-              <span className={styles.metadataDivider}>•</span>
-              <a
-                href={personal.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-link"
-              >
-                LinkedIn ↗
-              </a>
-              {personal.socials.instagram && (
-                <>
-                  <span className={styles.metadataDivider}>•</span>
-                  <a
-                    href={personal.socials.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link"
-                  >
-                    Instagram ↗
-                  </a>
-                </>
-              )}
+              {Object.entries(personal.socials)
+                .filter(
+                  ([platform, url]) =>
+                    Boolean(url) &&
+                    platform !== "github" &&
+                    platform !== "linkedin"
+                )
+                .map(([platform, url]) => (
+                  <React.Fragment key={platform}>
+                    <span className={styles.metadataDivider}>•</span>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="nav-link"
+                      style={{ textTransform: "capitalize" }}
+                    >
+                      {platform} ↗
+                    </a>
+                  </React.Fragment>
+                ))}
             </div>
           </FadeIn>
         </div>

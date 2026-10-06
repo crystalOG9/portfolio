@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getNavigation, getPersonalInfo } from "@/data";
+import { JellyRadio } from "@/components/ui";
 
 const SECTION_TO_NAV: Record<string, string> = {
   hero: "home",
@@ -29,9 +30,30 @@ export function Navbar() {
   const personal = getPersonalInfo();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
+  const isNavigatingRef = useRef(false);
+
+  const handleNavChange = (val: string) => {
+    setActiveSection(val);
+    isNavigatingRef.current = true;
+    const item = navItems.find((n) => n.id === val);
+    if (item?.href) {
+      const targetId = item.href.replace("#", "");
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.hash = item.href;
+      }
+    }
+    setTimeout(() => {
+      isNavigatingRef.current = false;
+    }, 850);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
+      if (isNavigatingRef.current) return;
+
       // 1. Top of page is always "home"
       if (window.scrollY < 200) {
         setActiveSection("home");
@@ -126,7 +148,7 @@ export function Navbar() {
           </a>
         </div>
 
-        {/* Mid of Header Section: Centered Navigation */}
+        {/* Mid of Header Section: Centered Navigation with JellyRadio */}
         <nav
           aria-label="Main Navigation"
           className="desktop-nav"
@@ -139,60 +161,30 @@ export function Navbar() {
             zIndex: 1,
           }}
         >
-          <ul
-            style={{
-              display: "flex",
-              gap: "var(--space-6, 1.5rem)",
-              alignItems: "center",
-              listStyle: "none",
-              margin: 0,
-              padding: "0.4rem 1.35rem",
-              borderRadius: "9999px",
-              backgroundColor: "rgba(255, 255, 255, 0.03)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
-              backdropFilter: "blur(12px)",
-            }}
-          >
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
-              return (
-                <li key={item.id} style={{ position: "relative" }}>
-                  <a
-                    href={item.href}
-                    className="nav-link"
-                    style={{
-                      position: "relative",
-                      color: isActive ? "#ffffff" : "var(--text-secondary)",
-                      fontWeight: isActive ? 600 : 450,
-                      fontSize: "var(--text-sm, 0.875rem)",
-                      letterSpacing: "-0.01em",
-                      transition: "color var(--transition-fast)",
-                      display: "inline-block",
-                      padding: "0.25rem 0.25rem",
-                    }}
-                    aria-current={isActive ? "page" : undefined}
-                  >
-                    {item.label}
-                    {isActive && (
-                      <span
-                        style={{
-                          position: "absolute",
-                          bottom: "-2px",
-                          left: 0,
-                          right: 0,
-                          height: "2px",
-                          borderRadius: "2px",
-                          background: "var(--accent-gradient)",
-                          boxShadow: "0 0 10px var(--accent-primary)",
-                        }}
-                        aria-hidden="true"
-                      />
-                    )}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+          <JellyRadio
+            items={navItems.map((item) => ({
+              value: item.id,
+              label: item.label,
+            }))}
+            value={activeSection}
+            onChange={handleNavChange}
+            chipColor="rgba(255, 255, 255, 0.04)"
+            activeColor="#ffffff"
+            textColor="#a1a1aa"
+            activeTextColor="#09090b"
+            size="md"
+            minWidth={84}
+            gap={12}
+            radius={9999}
+            swell={0.12}
+            barge={4}
+            shrink={0.03}
+            jelly={0.7}
+            bounce={0.2}
+            stiffness={560}
+            className="navbar-jelly-radio"
+            ariaLabel="Main Navigation"
+          />
         </nav>
 
         {/* Hard Right: Action CTA & Mobile Menu Toggle */}

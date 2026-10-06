@@ -1,0 +1,167 @@
+.jelly-radio {
+  --jr-chip: rgba(255, 255, 255, 0.05);
+  --jr-active: #ffffff;
+  --jr-text: #a1a1aa;
+  --jr-active-text: #09090b;
+  --jr-hover-gradient: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #c084fc 100%);
+  --jr-gap: 12px;
+  --jr-radius: 9999px;
+  --jr-h: 38px;
+  --jr-font: 13.5px;
+  --jr-px: 18px;
+  --jr-min-w: 82px;
+  --jr-pad-x: 0px;
+  --jr-pad-y: 0px;
+  --jr-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--jr-gap);
+  padding: 0;
+  margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.jelly-radio[data-disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.jelly-radio__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transform-origin: 50% 50%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  vertical-align: middle;
+}
+
+.jelly-radio__chip[data-on='true'] {
+  cursor: pointer;
+}
+
+.jelly-radio:not([data-disabled]) .jelly-radio__chip:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.jelly-radio__skin {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.45em;
+  height: var(--jr-h);
+  min-height: var(--jr-h);
+  min-width: var(--jr-min-w, 82px);
+  padding: 0 var(--jr-px);
+  border-radius: var(--jr-radius);
+  overflow: hidden;
+  background: var(--jr-chip);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--jr-text);
+  font-family: var(--font-display, var(--font-sans));
+  font-size: var(--jr-font);
+  font-weight: 550;
+  letter-spacing: 0.02em;
+  line-height: normal;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    transform 160ms var(--jr-ease-out),
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Purple gradient hover layer */
+.jelly-radio__skin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--jr-hover-gradient);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 1;
+}
+
+.jelly-radio__icon,
+.jelly-radio__label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  transform: translateY(0);
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Show vibrant purple gradient on hover */
+  .jelly-radio__chip:not(:disabled):hover .jelly-radio__skin::before {
+    opacity: 1;
+  }
+
+  .jelly-radio__chip:not(:disabled):hover .jelly-radio__skin {
+    color: #ffffff !important;
+    border-color: rgba(192, 132, 252, 0.8) !important;
+    box-shadow: 0 0 18px rgba(168, 85, 247, 0.45), 0 0 30px rgba(124, 58, 237, 0.25);
+  }
+
+  .jelly-radio__chip:not(:disabled):hover .jelly-radio__label {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.jelly-radio__chip:active .jelly-radio__skin {
+  transform: scale(0.97);
+}
+
+.jelly-radio__chip[data-on='true'] .jelly-radio__skin {
+  background: var(--jr-active);
+  color: var(--jr-active-text);
+  border-color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25), 0 0 14px rgba(255, 255, 255, 0.2);
+}
+
+.jelly-radio__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jelly-radio__chip:active .jelly-radio__skin {
+    transform: none;
+  }
+}

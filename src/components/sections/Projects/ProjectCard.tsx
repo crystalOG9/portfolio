@@ -119,7 +119,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
       </div>
 
       {/* Action Links (conditionally rendered only if real URLs exist) */}
-      {(project.liveUrl || project.githubUrl) && (
+      {project.liveUrl && (
         <div
           style={{
             display: "flex",
@@ -129,32 +129,17 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
             borderTop: "1px solid var(--border-subtle)",
           }}
         >
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: "var(--accent-primary)",
-                fontWeight: "var(--font-medium, 500)",
-              }}
-            >
-              Live Project ↗
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: "var(--text-secondary)",
-                fontWeight: "var(--font-medium, 500)",
-              }}
-            >
-              Source Code ↗
-            </a>
-          )}
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "var(--accent-primary)",
+              fontWeight: "var(--font-medium, 500)",
+            }}
+          >
+            Live Project ↗
+          </a>
         </div>
       )}
     </Card>

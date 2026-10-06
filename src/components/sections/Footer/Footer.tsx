@@ -48,21 +48,28 @@ export function Footer() {
               gap: "var(--space-6, 1.5rem)",
             }}
           >
-            {Object.entries(personal.socials).map(([platform, url]) => {
-              if (!url) return null;
-              return (
-                <li key={platform}>
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer-link"
-                  >
-                    {platform} ↗
-                  </a>
-                </li>
-              );
-            })}
+            {Object.entries(personal.socials)
+              .filter(
+                ([platform, url]) =>
+                  Boolean(url) &&
+                  platform !== "github" &&
+                  platform !== "linkedin"
+              )
+              .map(([platform, url]) => {
+                return (
+                  <li key={platform}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer-link"
+                      style={{ textTransform: "capitalize" }}
+                    >
+                      {platform} ↗
+                    </a>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </Container>

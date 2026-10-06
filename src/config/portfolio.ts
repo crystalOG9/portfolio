@@ -49,8 +49,6 @@ export const portfolioConfig: PortfolioConfig = {
     availableForWork: true,
     resumeUrl: "#",
     socials: {
-      github: "https://github.com",
-      linkedin: "https://linkedin.com",
       instagram: "https://www.instagram.com/piyuxh.3xe/",
     },
   },

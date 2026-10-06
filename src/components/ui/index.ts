@@ -8,4 +8,5 @@ export * from "./Button";
 export * from "./SectionHeader";
 export * from "./Card";
 export * from "./BorderGlow";
+export * from "./JellyRadio";
 
