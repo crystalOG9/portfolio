@@ -99,6 +99,10 @@ export interface ProjectItem {
   liveUrl?: string;
   githubUrl?: string;
   caseStudyUrl?: string;
+  role?: string;
+  status?: "Prototype" | "In Development" | "Functional" | "Functional Prototype" | "Active Lab";
+  implementedFeatures?: string[];
+  plannedFeatures?: string[];
 }
 
 export interface ExperienceItem {

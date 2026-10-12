@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useReducedMotion } from "@/hooks";
+import React from "react";
+import { useReducedMotion, useMounted } from "@/hooks";
 import { getFeatureFlags } from "@/data";
 import { SceneBoundary } from "../SceneBoundary";
 import { DigitalCoreScene } from "./DigitalCoreScene";
@@ -24,11 +24,7 @@ export interface DigitalCoreProps {
 export function DigitalCore({ className = "" }: DigitalCoreProps) {
   const prefersReduced = useReducedMotion();
   const features = getFeatureFlags();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (!mounted || !features.ENABLE_3D) {
     return null;

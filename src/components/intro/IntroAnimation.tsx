@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useReducedMotion } from "@/hooks";
+import { useReducedMotion, useMounted } from "@/hooks";
 import { defaultIntroConfig, type IntroAnimationConfig } from "./introConfig";
 import styles from "./introAnimation.module.css";
 
@@ -33,8 +33,7 @@ type IntroStage =
 export function IntroAnimation({ config: userConfig }: IntroAnimationProps) {
   const config = { ...defaultIntroConfig, ...userConfig };
   const prefersReduced = useReducedMotion();
-
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const [stage, setStage] = useState<IntroStage>("initial");
 
   useEffect(() => {
@@ -54,8 +53,6 @@ export function IntroAnimation({ config: userConfig }: IntroAnimationProps) {
         // Fallback for private browsing restrictions
       }
     }
-
-    setMounted(true);
 
     // 3. Fast path for prefers-reduced-motion
     if (prefersReduced) {

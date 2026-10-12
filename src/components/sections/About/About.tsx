@@ -4,47 +4,47 @@ import { Container, SectionHeader } from "@/components/ui";
 import { FadeIn } from "@/components/animations";
 import styles from "./about.module.css";
 
+// Distinct toolsets with zero duplicate items across rows
 const TOOLKIT_ROW_1 = [
-  "Three.js",
-  "WebGL",
-  "Git",
-  "JavaScript",
-  "TypeScript",
   "React.js",
   "Next.js",
-  "GSAP",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "SQL",
+  "TypeScript",
+  "JavaScript",
   "HTML5 & CSS3",
+  "Three.js",
+  "WebGL",
+  "GSAP",
+  "Tailwind CSS",
+  "Git",
+  "GitHub",
 ];
 
 const TOOLKIT_ROW_2 = [
-  "Tailwind CSS",
+  "Node.js",
   "REST APIs",
-  "Expo",
-  "React Native",
-  "AI & Automation",
-  "Supabase",
-  "n8n",
   "Python",
   "C++",
   "Java",
+  "SQL",
+  "MongoDB",
+  "Supabase",
+  "n8n Automation",
   "React Three Fiber",
-  "MySQL",
-  "Next.js",
+  "VS Code",
+  "Vercel",
 ];
 
 /**
  * About Section Component
- * Features main personal narrative and dual-row "MY TOOLKIT" marquee
+ * 
+ * Features authentic student narrative, clear background depth,
+ * and accessible dual-row "MY TOOLKIT" marquee.
  */
 export function About() {
   const personal = getPersonalInfo();
 
   return (
-    <section id="about" className={styles.aboutSection}>
+    <section id="about" className={styles.aboutSection} aria-label="About Me">
       {/* Background Lighting & Depth Aesthetics */}
       <div className={styles.bgGlowViolet} aria-hidden="true" />
       <div className={styles.bgGlowCyan} aria-hidden="true" />
@@ -57,7 +57,7 @@ export function About() {
             <SectionHeader
               tag="ABOUT / MINDSET"
               title="Building Beyond the Ordinary"
-              subtitle="I’m a Computer Science student and creative developer who enjoys turning ideas into interactive digital experiences."
+              subtitle="Computer Science student exploring modern web engineering, 3D interaction, and AI automation."
             />
           </FadeIn>
 
@@ -105,7 +105,10 @@ export function About() {
 
         {/* MY TOOLKIT Dual Marquee Section - Continuous Edge-to-Edge */}
         <FadeIn delay={350}>
-          <div className={styles.marqueeContainer}>
+          <div
+            className={styles.marqueeContainer}
+            aria-label="Technologies and tools marquee"
+          >
             {/* Row 1 - Flowing Left */}
             <div className={`${styles.marqueeTrack} ${styles.marqueeRow1}`}>
               {Array.from({ length: 4 }).map((_, groupIdx) => (

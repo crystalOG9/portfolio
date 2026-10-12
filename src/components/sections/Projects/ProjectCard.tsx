@@ -5,31 +5,70 @@ import { Card } from "@/components/ui";
 export interface ProjectCardProps {
   project: ProjectItem;
   className?: string;
+  onOpenDetails?: () => void;
 }
 
 /**
  * ProjectCard Component
- * Phase 02 - Personal Information, Visual Identity & Initial Motion
- *
+ * 
  * Reusable card rendering an individual project from configuration.
- * Hides links if not provided and maintains clean visual hierarchy.
+ * Displays project name, role, status, technologies, and clear interaction cues.
  */
-export function ProjectCard({ project, className }: ProjectCardProps) {
+export function ProjectCard({ project, className, onOpenDetails }: ProjectCardProps) {
+  const getStatusColor = (status?: string) => {
+    switch (status) {
+      case "In Development":
+        return {
+          color: "#c084fc",
+          bg: "rgba(192, 132, 252, 0.12)",
+          border: "rgba(192, 132, 252, 0.35)",
+        };
+      case "Prototype":
+        return {
+          color: "#38bdf8",
+          bg: "rgba(56, 189, 248, 0.12)",
+          border: "rgba(56, 189, 248, 0.35)",
+        };
+      case "Functional Prototype":
+      case "Functional":
+        return {
+          color: "#34d399",
+          bg: "rgba(52, 211, 153, 0.12)",
+          border: "rgba(52, 211, 153, 0.35)",
+        };
+      case "Active Lab":
+      default:
+        return {
+          color: "#a78bfa",
+          bg: "rgba(167, 139, 250, 0.12)",
+          border: "rgba(167, 139, 250, 0.35)",
+        };
+    }
+  };
+
+  const statusStyle = getStatusColor(project.status);
+
   return (
     <Card
       className={className}
       as="article"
       style={{
         height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        transition: "transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease",
       }}
     >
       <div>
-        {/* Category & Year */}
+        {/* Category & Status Badge */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            flexWrap: "wrap",
+            gap: "0.5rem",
             marginBottom: "var(--space-3, 0.75rem)",
           }}
         >
@@ -40,40 +79,29 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
               color: "var(--accent-cyan)",
               textTransform: "uppercase",
               letterSpacing: "0.06em",
-              fontWeight: "var(--font-medium, 500)",
+              fontWeight: 500,
             }}
           >
             {project.category}
           </span>
-          {project.id === "spartan" ? (
+          {project.status && (
             <span
               style={{
                 fontSize: "0.7rem",
                 fontFamily: "var(--font-mono)",
-                color: "#c084fc",
-                background: "rgba(192, 132, 252, 0.12)",
-                border: "1px solid rgba(192, 132, 252, 0.35)",
-                padding: "0.2rem 0.6rem",
+                color: statusStyle.color,
+                background: statusStyle.bg,
+                border: `1px solid ${statusStyle.border}`,
+                padding: "0.18rem 0.55rem",
                 borderRadius: "9999px",
-                fontWeight: 700,
-                letterSpacing: "0.08em",
+                fontWeight: 600,
+                letterSpacing: "0.06em",
                 textTransform: "uppercase",
-                boxShadow: "0 0 12px rgba(192, 132, 252, 0.25)",
               }}
             >
-              Main Project
+              {project.status}
             </span>
-          ) : project.year ? (
-            <span
-              style={{
-                fontSize: "var(--text-xs, 0.75rem)",
-                fontFamily: "var(--font-mono)",
-                color: "var(--text-muted)",
-              }}
-            >
-              {project.year}
-            </span>
-          ) : null}
+          )}
         </div>
 
         {/* Project Title */}
@@ -82,12 +110,26 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
             fontSize: "var(--text-xl, 1.25rem)",
             fontWeight: "var(--font-bold, 700)",
             color: "var(--text-primary)",
-            marginBottom: "var(--space-3, 0.75rem)",
+            marginBottom: "0.25rem",
             letterSpacing: "-0.015em",
           }}
         >
           {project.title}
         </h3>
+
+        {/* Contribution / Role */}
+        {project.role && (
+          <p
+            style={{
+              fontSize: "0.78rem",
+              fontFamily: "var(--font-mono)",
+              color: "var(--text-muted)",
+              marginBottom: "var(--space-3, 0.75rem)",
+            }}
+          >
+            Role: <span style={{ color: "var(--text-secondary)" }}>{project.role}</span>
+          </p>
+        )}
 
         {/* Summary Description */}
         <p
@@ -107,7 +149,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
             display: "flex",
             flexWrap: "wrap",
             gap: "var(--space-2, 0.5rem)",
-            marginBottom: "var(--space-6, 1.5rem)",
+            marginBottom: "var(--space-5, 1.25rem)",
           }}
         >
           {project.technologies.map((tech) => (
@@ -118,30 +160,55 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         </ul>
       </div>
 
-      {/* Action Links (conditionally rendered only if real URLs exist) */}
-      {project.liveUrl && (
-        <div
+      {/* Action Footer */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          paddingTop: "var(--space-3, 0.75rem)",
+          borderTop: "1px solid var(--border-subtle)",
+          marginTop: "auto",
+        }}
+      >
+        <button
+          type="button"
+          onClick={onOpenDetails}
           style={{
-            display: "flex",
-            gap: "var(--space-4, 1rem)",
-            fontSize: "var(--text-sm, 0.875rem)",
-            paddingTop: "var(--space-4, 1rem)",
-            borderTop: "1px solid var(--border-subtle)",
+            background: "none",
+            border: "none",
+            padding: 0,
+            fontSize: "var(--text-xs, 0.75rem)",
+            fontFamily: "var(--font-mono)",
+            color: "var(--accent-primary)",
+            cursor: "pointer",
+            fontWeight: 500,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.35rem",
           }}
         >
+          <span>View Architecture &amp; Scope</span>
+          <span>→</span>
+        </button>
+
+        {project.liveUrl && (
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
             style={{
-              color: "var(--accent-primary)",
-              fontWeight: "var(--font-medium, 500)",
+              fontSize: "var(--text-xs, 0.75rem)",
+              fontFamily: "var(--font-mono)",
+              color: "var(--accent-cyan)",
+              textDecoration: "none",
             }}
           >
-            Live Project ↗
+            Demo ↗
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </Card>
   );
 }

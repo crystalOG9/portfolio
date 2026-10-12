@@ -110,11 +110,11 @@ export const digitalCoreConfig: DigitalCoreConfig = {
   sections: [
     {
       id: "hero",
-      position: [-2.6, -3.2, 0.0], // Deep in the bottom-left off-screen (0 scale on Home page)
-      scale: 0.0, // Hidden on Home page
-      rotationSpeedMultiplier: 0.6,
-      emissiveIntensity: 0.0,
-      distortion: 0.0,
+      position: [1.75, 0.22, 0.0], // Right side of the hero, non-blocking
+      scale: 0.95,
+      rotationSpeedMultiplier: 0.85,
+      emissiveIntensity: 0.95,
+      distortion: 0.04,
     },
     {
       id: "about",

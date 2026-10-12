@@ -147,10 +147,37 @@
 }
 
 @media (max-width: 767px) {
+  .timelineRow {
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 2.25rem;
+  }
+
   .stickyCol {
     position: static;
-    max-width: 48px;
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .timelineNode {
+    position: relative;
+    left: 0;
+    top: 0.15rem;
+    transform: none;
     flex-shrink: 0;
+  }
+
+  .infoBlock {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .contentCol {
+    padding-left: 3.25rem;
   }
 }
 
@@ -195,17 +222,16 @@
   box-shadow: 0 0 18px rgba(56, 189, 248, 0.9);
 }
 
-/* Desktop Header Block (Left side) */
-.desktopInfo {
-  display: none;
+/* Unified Semantic Header Block */
+.infoBlock {
+  display: flex;
   flex-direction: column;
   gap: 0.4rem;
-  padding-left: 3.5rem;
 }
 
 @media (min-width: 768px) {
-  .desktopInfo {
-    display: flex;
+  .infoBlock {
+    padding-left: 3.5rem;
   }
 }
 
@@ -240,24 +266,6 @@
   position: relative;
   flex: 1;
   width: 100%;
-}
-
-@media (max-width: 767px) {
-  .contentCol {
-    padding-left: 1.25rem;
-  }
-}
-
-/* Mobile-only Header */
-.mobileInfo {
-  display: block;
-  margin-bottom: 1.25rem;
-}
-
-@media (min-width: 768px) {
-  .mobileInfo {
-    display: none;
-  }
 }
 
 /* Content Glass Panel */

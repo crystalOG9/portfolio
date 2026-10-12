@@ -1,34 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Piyush Pawar — Personal Portfolio
 
-## Getting Started
+> **Frontend & Creative Developer**  
+> Building modern web experiences with interactive 3D, thoughtful UI, and AI-powered automation.
 
-First, run the development server:
+---
+
+## 🌟 Highlights
+
+- **Interactive 3D Digital Core:** Custom Three.js liquid-crystalline glass shader and procedural particle core with scroll-driven transitions.
+- **Modern UI & Design System:** Tailored dark cinematic palette, glassmorphism, responsive typography, and tactile micro-interactions.
+- **Deduplicated Content & Clean Architecture:** Component-based Next.js 16 app with strict decoupling between data configuration and presentation.
+- **Projects Showcase:** Detailed architecture breakdowns distinguishing functional features, working prototypes, and planned roadmap items across SPARTAN, RideBridge, Medi-4-U, and Creative Web Experiments.
+- **Accessibility & Motion:** Full support for `prefers-reduced-motion`, semantic heading hierarchy, and keyboard navigation.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 16 (Turbopack) & React 19
+- **Languages:** TypeScript, JavaScript, HTML5, CSS3
+- **3D & Creative:** Three.js, WebGL, GSAP, Canvas 2D
+- **Styling:** Vanilla CSS Modules & CSS Custom Properties Design Tokens
+- **AI & Automation:** n8n, Supabase, REST APIs
+- **Tooling:** Git, GitHub, VS Code, Vercel
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm, pnpm, or yarn
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/crystalOG9/portfolio.git
+
+# Navigate to project directory
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production Build
 
-## Learn More
+```bash
+# Type check and build optimized bundle
+npm run build
 
-To learn more about Next.js, take a look at the following resources:
+# Start production server
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📬 Contact & Connect
 
-## Deploy on Vercel
+- **Email:** [pawarpiyush172@gmail.com](mailto:pawarpiyush172@gmail.com)
+- **Instagram:** [@piyuxh.3xe](https://www.instagram.com/piyuxh.3xe/)
+- **GitHub:** [@crystalOG9](https://github.com/crystalOG9)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+© 2026 Piyush Pawar. All rights reserved.

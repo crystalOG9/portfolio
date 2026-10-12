@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Container, SectionHeader } from "@/components/ui";
+import { SectionHeader } from "@/components/ui";
 import { CapabilityCard } from "./CapabilityCard";
 import { capabilityCardsData } from "./capabilityData";
 import styles from "./capabilities.module.css";
@@ -86,7 +86,7 @@ export function CapabilitiesSection() {
           <SectionHeader
             tag="Capabilities"
             title="Capabilities & Focus Areas"
-            subtitle="From scalable modern web applications and mobile apps to backend APIs and autonomous AI workflows."
+            subtitle="Frontend development, creative 3D web experiences, and practical AI automation workflows."
           />
         </div>
 
