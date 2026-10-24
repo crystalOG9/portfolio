@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { getPersonalInfo } from "@/data";
+import { getPersonalInfo, getFeatureFlags } from "@/data";
 import { Button } from "@/components/ui";
 import { FadeIn, ScrollIndicator } from "@/components/animations";
 import styles from "./hero.module.css";
 
 /**
  * RotatingWord Component
- * Cycles subtly through engineering focus keywords
+ * Cycles dynamically through signature engineering values (Scalable, Modern, Reliable, Interactive)
+ * Reference: hasnainirfan.com/#home dynamic keyword cycle
  */
 function RotatingWord({ words }: { words: string[] }) {
   const [index, setIndex] = useState(0);
@@ -27,16 +28,15 @@ function RotatingWord({ words }: { words: string[] }) {
     return () => clearInterval(interval);
   }, [words]);
 
-  const currentWord = words[index] || words[0] || "Interactive";
+  const currentWord = words[index] || words[0] || "Scalable";
 
   return (
     <span
       style={{
         display: "inline-block",
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(8px)",
-        transition:
-          "opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
+        transform: isVisible ? "translateY(0)" : "translateY(10px)",
+        transition: "opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
     >
       {currentWord}
@@ -47,27 +47,25 @@ function RotatingWord({ words }: { words: string[] }) {
 /**
  * Hero Section Component
  * 
- * Hierarchy:
- * - Status Pill: "Available for new projects"
- * - Salutation: "Hi, I'm Piyush Pawar"
- * - Main Headline: "Frontend & Creative Developer"
- * - Supporting text: "Building modern web experiences with interactive 3D, thoughtful UI, and AI-powered automation."
- * - Primary CTA: "View My Work" (#work)
- * - Secondary CTA: "Let's Work Together" (#contact)
+ * Layout:
+ * - Content positioned at the total right side
+ * - Vertically elevated ("little bit upper side")
+ * - Text structure referenced from hasnainirfan.com/#home
  */
 export function Hero() {
   const personal = getPersonalInfo();
+  const features = getFeatureFlags();
 
   const rotatingWords =
     personal.heroRotatingWords && personal.heroRotatingWords.length > 0
       ? personal.heroRotatingWords
-      : ["Interactive", "Modern", "Creative", "Thoughtful"];
+      : ["Scalable", "Modern", "Reliable", "Interactive"];
 
   return (
     <section id="hero" className={styles.heroSection}>
       <div id="home" style={{ position: "relative", top: "-80px", visibility: "hidden" }} />
 
-      {/* Static Background Artwork */}
+      {/* Static Background Artwork for Home / Hero Section */}
       <div className={styles.heroBackground} aria-hidden="true">
         <img
           src="/images/hero-bg.jpg"
@@ -120,46 +118,41 @@ export function Hero() {
 
           {/* Salutation: "Hi, I'm Piyush Pawar" */}
           <FadeIn delay={180} direction="up">
-            <p className={styles.salutation}>
+            <h1 className={styles.salutation}>
               {personal.heroGreeting || "Hi, I'm"}{" "}
               <span className={styles.salutationHighlight}>
                 {personal.displayName || personal.name}
               </span>
-            </p>
-          </FadeIn>
-
-          {/* Main Headline: "Frontend & Creative Developer" */}
-          <FadeIn delay={260} direction="up">
-            <h1 className={`text-gradient ${styles.headlineRole}`}>
-              Frontend &amp; Creative Developer
             </h1>
           </FadeIn>
 
-          {/* Supporting Text */}
-          <FadeIn delay={340} direction="up">
-            <p className={styles.supportingText}>
-              Building modern web experiences with interactive 3D, thoughtful UI, and AI-powered automation.
+          {/* Role & Crafting headline in text-gradient */}
+          <FadeIn delay={260} direction="up">
+            <p className={`text-gradient ${styles.headlineRole}`}>
+              {personal.heroRole || "Frontend & Creative Developer"}
+              <br />
+              {personal.heroActionWord || "crafting"}
             </p>
           </FadeIn>
 
-          {/* Dynamic Interactive Crafting Tag */}
-          <FadeIn delay={400} direction="up">
-            <div className={styles.focusTag}>
-              <span>Crafting</span>
-              <span className={styles.rotatingWordHighlight}>
-                <RotatingWord words={rotatingWords} />
-              </span>
-              <span>digital interfaces &amp; systems</span>
+          {/* Signature dynamic rotating word */}
+          <FadeIn delay={340} direction="up">
+            <div className={styles.rotatingWordWrapper}>
+              <RotatingWord words={rotatingWords} />
             </div>
           </FadeIn>
 
-          {/* Primary & Secondary Action CTAs */}
-          <FadeIn delay={480} direction="up">
+          {/* Continuation punchline: "web & mobile products." */}
+          <FadeIn delay={420} direction="up">
+            <p className={styles.punchline}>
+              {personal.heroEndingText || "web & mobile products."}
+            </p>
+          </FadeIn>
+
+          {/* Action Buttons: "Hire Me →" & "View My Work" */}
+          <FadeIn delay={540} direction="up">
             <div className={styles.actionButtons}>
               <Button size="lg" asChild>
-                <a href="#work">View My Work</a>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
                 <a
                   href="#contact"
                   style={{
@@ -168,43 +161,41 @@ export function Hero() {
                     gap: "0.5rem",
                   }}
                 >
-                  <span>Let&apos;s Work Together</span>
+                  <span>Hire Me</span>
                   <span aria-hidden="true">→</span>
                 </a>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <a href="#work">View My Work</a>
               </Button>
             </div>
           </FadeIn>
 
-          {/* Quick Metadata: Location and Verified Links */}
-          <FadeIn delay={560} direction="up">
+          {/* Quick Metadata: Location and Social Links */}
+          <FadeIn delay={660} direction="up">
             <div className={styles.metadataRow}>
               <span>{personal.location}</span>
-              {personal.socials.github && (
-                <>
-                  <span className={styles.metadataDivider}>•</span>
-                  <a
-                    href={personal.socials.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link"
-                  >
-                    GitHub ↗
-                  </a>
-                </>
-              )}
-              {personal.socials.instagram && (
-                <>
-                  <span className={styles.metadataDivider}>•</span>
-                  <a
-                    href={personal.socials.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link"
-                  >
-                    Instagram ↗
-                  </a>
-                </>
-              )}
+              {Object.entries(personal.socials)
+                .filter(
+                  ([platform, url]) =>
+                    Boolean(url) &&
+                    platform !== "github" &&
+                    platform !== "linkedin"
+                )
+                .map(([platform, url]) => (
+                  <React.Fragment key={platform}>
+                    <span className={styles.metadataDivider}>•</span>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="nav-link"
+                      style={{ textTransform: "capitalize" }}
+                    >
+                      {platform} ↗
+                    </a>
+                  </React.Fragment>
+                ))}
             </div>
           </FadeIn>
         </div>

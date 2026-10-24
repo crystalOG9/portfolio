@@ -12,7 +12,7 @@ export function Experience() {
   const experiences = getExperience();
 
   return (
-    <section id="experience" className={`portfolio-section ${styles.experienceSection}`} aria-label="Milestones and Education">
+    <section id="experience" className={`portfolio-section ${styles.experienceSection}`}>
       {/* Ambient background decorative glow lights */}
       <div className={styles.bgGlowAqua} aria-hidden="true" />
       <div className={styles.bgGlowPurple} aria-hidden="true" />
@@ -21,9 +21,9 @@ export function Experience() {
         <Container>
           <FadeIn delay={100}>
             <div className={styles.headerBlock}>
-              <span className={styles.eyebrow}>Milestones &amp; Education</span>
+              <span className={styles.eyebrow}>Experience &amp; Milestones</span>
               <h2 className={styles.heading}>
-                Foundation, Projects &amp; <span className={styles.textGradient}>Continuous Learning.</span>
+                A track record of <span className={styles.textGradient}>shipping &amp; learning.</span>
               </h2>
             </div>
           </FadeIn>
@@ -35,24 +35,31 @@ export function Experience() {
             {/* Timeline Rows */}
             {experiences.map((item, index) => (
               <div key={item.id} className={styles.timelineRow}>
-                {/* Header Column with Sticky Node & Milestone Info (Rendered once without duplication) */}
+                {/* Sticky Left Column (Desktop) */}
                 <div className={styles.stickyCol}>
                   {/* Timeline Glowing Node */}
-                  <div className={styles.timelineNode} aria-hidden="true">
+                  <div className={styles.timelineNode}>
                     <div className={styles.nodeDot} />
                   </div>
 
-                  {/* Single Semantic Information Block */}
-                  <div className={styles.infoBlock}>
+                  {/* Desktop Information Block */}
+                  <div className={styles.desktopInfo}>
                     <span className={styles.periodBadge}>{item.period}</span>
                     <h3 className={styles.roleTitle}>{item.role}</h3>
                     <p className={styles.companySubtitle}>{item.company}</p>
                   </div>
                 </div>
 
-                {/* Content Column */}
+                {/* Right Content Column */}
                 <div className={styles.contentCol}>
                   <FadeIn delay={150 + index * 80}>
+                    {/* Mobile-only Header */}
+                    <div className={styles.mobileInfo}>
+                      <span className={styles.periodBadge}>{item.period}</span>
+                      <h3 className={styles.roleTitle}>{item.role}</h3>
+                      <p className={styles.companySubtitle}>{item.company}</p>
+                    </div>
+
                     {/* Content Card with Glassmorphic styling & BorderGlow */}
                     <BorderGlow
                       borderRadius={24}

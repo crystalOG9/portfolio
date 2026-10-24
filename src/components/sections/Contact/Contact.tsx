@@ -6,117 +6,50 @@ import { Container, SectionHeader, Button } from "@/components/ui";
 import { FadeIn } from "@/components/animations";
 import styles from "./contact.module.css";
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-}
-
 /**
  * Contact Section Component
- * 
- * Includes:
- * - Client-side validation (name, email format, minimum message length)
- * - Transparent email routing (no faked server submission)
- * - Copy-to-clipboard email utility with feedback
- * - Direct social channels (Email, GitHub, Instagram)
+ * High-visibility styling with clear input visibility & direct channels
  */
 export function Contact() {
   const personal = getPersonalInfo();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [status, setStatus] = useState<"idle" | "launching" | "opened">("idle");
-  const [copied, setCopied] = useState(false);
-
-  const validate = (): boolean => {
-    const newErrors: FormErrors = {};
-
-    if (!formData.name.trim() || formData.name.trim().length < 2) {
-      newErrors.name = "Please enter your name (at least 2 characters).";
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
-      newErrors.email = "Please enter a valid email address.";
-    }
-
-    if (!formData.message.trim() || formData.message.trim().length < 10) {
-      newErrors.message = "Please include a message (at least 10 characters).";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!formData.name || !formData.email || !formData.message) return;
 
-    setStatus("launching");
-
-    // Construct mailto link
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name.trim()}`);
+    // Generate mailto link
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
     const body = encodeURIComponent(
-      `Hi Piyush,\n\n${formData.message.trim()}\n\n---\nSender: ${formData.name.trim()}\nEmail: ${formData.email.trim()}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
     );
-
-    setTimeout(() => {
-      window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`;
-      setStatus("opened");
-    }, 300);
-  };
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personal.email).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2800);
-    });
+    window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`;
+    setSubmitted(true);
   };
 
   return (
-    <section id="contact" className={`portfolio-section ${styles.contactSection}`} aria-label="Contact Section">
+    <section id="contact" className={`portfolio-section ${styles.contactSection}`}>
       <Container>
         <FadeIn delay={100}>
           <SectionHeader
             tag="Get In Touch"
-            title="Let's Build Something Together"
-            subtitle="Interested in collaborating on modern web experiences, 3D interaction, or workflow automation? Let's connect."
+            title="Initiate a Collaboration"
+            subtitle="Interested in building innovative web experiences, exploring AI automation workflows, or discussing full-stack engineering?"
           />
         </FadeIn>
 
         <div className={styles.contentRow}>
-          {/* Message Form */}
+          {/* Message Form aligned to left corner */}
           <FadeIn delay={200} className={styles.formWrapper}>
-            <form onSubmit={handleSubmit} className={styles.formPanel} noValidate>
+            <form onSubmit={handleSubmit} className={styles.formPanel}>
               <div>
                 <h3 className={styles.formTitle}>Send a Message</h3>
                 <p className={styles.formSubtitle}>
-                  Fill in your details below to compose a direct inquiry to{" "}
-                  <strong style={{ color: "#ffffff" }}>{personal.email}</strong>.
+                  Have an idea, project, or question? Send a message and I&apos;ll get back to you promptly.
                 </p>
               </div>
 
-              {/* Status Alert if Opened */}
-              {status === "opened" && (
-                <div
-                  style={{
-                    backgroundColor: "rgba(52, 211, 153, 0.1)",
-                    border: "1px solid rgba(52, 211, 153, 0.3)",
-                    borderRadius: "var(--radius-md, 0.5rem)",
-                    padding: "0.85rem 1rem",
-                    fontSize: "0.8125rem",
-                    color: "#a7f3d0",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  <strong style={{ display: "block", marginBottom: "0.25rem", color: "#34d399" }}>
-                    ✓ Email Application Launched
-                  </strong>
-                  Your pre-filled message has been prepared for your mail client. If it did not launch automatically, you can copy the address below to send directly.
-                </div>
-              )}
-
-              {/* Name Field */}
               <div className={styles.formGroup}>
                 <label htmlFor="contact-name" className={styles.fieldLabel}>
                   <span>Your Name</span>
@@ -127,22 +60,14 @@ export function Contact() {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value });
-                    if (errors.name) setErrors({ ...errors, name: undefined });
-                  }}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Enter your name"
                   className={styles.inputField}
-                  style={errors.name ? { borderColor: "#f87171" } : undefined}
                 />
-                {errors.name && (
-                  <span style={{ fontSize: "0.75rem", color: "#f87171", marginTop: "0.35rem" }}>
-                    {errors.name}
-                  </span>
-                )}
               </div>
 
-              {/* Email Field */}
               <div className={styles.formGroup}>
                 <label htmlFor="contact-email" className={styles.fieldLabel}>
                   <span>Your Email</span>
@@ -153,22 +78,14 @@ export function Contact() {
                   type="email"
                   required
                   value={formData.email}
-                  onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value });
-                    if (errors.email) setErrors({ ...errors, email: undefined });
-                  }}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="Enter your email address"
                   className={styles.inputField}
-                  style={errors.email ? { borderColor: "#f87171" } : undefined}
                 />
-                {errors.email && (
-                  <span style={{ fontSize: "0.75rem", color: "#f87171", marginTop: "0.35rem" }}>
-                    {errors.email}
-                  </span>
-                )}
               </div>
 
-              {/* Message Field */}
               <div className={styles.formGroup}>
                 <label htmlFor="contact-message" className={styles.fieldLabel}>
                   <span>Message</span>
@@ -179,80 +96,29 @@ export function Contact() {
                   required
                   rows={4}
                   value={formData.message}
-                  onChange={(e) => {
-                    setFormData({ ...formData, message: e.target.value });
-                    if (errors.message) setErrors({ ...errors, message: undefined });
-                  }}
-                  placeholder="Tell me about your project, idea, or questions..."
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
+                  placeholder="Type your message here..."
                   className={styles.textareaField}
-                  style={errors.message ? { borderColor: "#f87171" } : undefined}
                 />
-                {errors.message && (
-                  <span style={{ fontSize: "0.75rem", color: "#f87171", marginTop: "0.35rem" }}>
-                    {errors.message}
-                  </span>
-                )}
               </div>
 
-              {/* Actions & Direct Options */}
               <div className={styles.formActions}>
                 <Button type="submit" size="md">
-                  {status === "launching" ? "Preparing Email..." : "Send Message ↗"}
+                  {submitted ? "Launching Mail Client..." : "Send Message ↗"}
                 </Button>
 
                 <div className={styles.directChannels}>
-                  <button
-                    type="button"
-                    onClick={handleCopyEmail}
+                  <a
+                    href={`mailto:${personal.email}`}
                     className={styles.directEmailPill}
-                    title="Click to copy email address"
-                    style={{ cursor: "pointer", background: "none" }}
+                    title="Send email directly"
                   >
                     <span>✉</span>
-                    <span>{copied ? "✓ Copied!" : personal.email}</span>
-                  </button>
+                    <span>{personal.email}</span>
+                  </a>
                 </div>
-              </div>
-
-              {/* Social Channels Row */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1rem",
-                  paddingTop: "0.75rem",
-                  borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-                  fontSize: "0.8125rem",
-                  fontFamily: "var(--font-mono)",
-                  color: "var(--text-muted)",
-                  flexWrap: "wrap",
-                }}
-              >
-                <span>Direct Links:</span>
-                {personal.socials.github && (
-                  <a
-                    href={personal.socials.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link"
-                    style={{ color: "var(--accent-primary)" }}
-                  >
-                    GitHub ↗
-                  </a>
-                )}
-                {personal.socials.instagram && (
-                  <a
-                    href={personal.socials.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="nav-link"
-                    style={{ color: "var(--accent-cyan)" }}
-                  >
-                    Instagram ↗
-                  </a>
-                )}
-                <span>•</span>
-                <span>{personal.location}</span>
               </div>
             </form>
           </FadeIn>

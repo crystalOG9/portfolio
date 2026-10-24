@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { getNavigation } from "@/data";
+import { getNavigation, getPersonalInfo } from "@/data";
 import { JellyRadio } from "@/components/ui";
 
 const SECTION_TO_NAV: Record<string, string> = {
@@ -27,6 +27,7 @@ const SECTION_TO_NAV: Record<string, string> = {
  */
 export function Navbar() {
   const navItems = getNavigation();
+  const personal = getPersonalInfo();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
   const isNavigatingRef = useRef(false);
@@ -41,9 +42,7 @@ export function Navbar() {
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
       } else {
-        if (typeof window !== "undefined") {
-          window.history.pushState(null, "", item.href);
-        }
+        window.location.hash = item.href;
       }
     }
     setTimeout(() => {

@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { useReducedMotion, useMounted } from "@/hooks";
+import React, { useEffect, useState } from "react";
+import { useReducedMotion } from "@/hooks";
 import { getFeatureFlags } from "@/data";
 import { SceneBoundary } from "../SceneBoundary";
 import { OrbScene } from "./OrbScene";
@@ -24,7 +24,11 @@ export interface PersistentOrbProps {
 export function PersistentOrb({ className = "" }: PersistentOrbProps) {
   const prefersReduced = useReducedMotion();
   const features = getFeatureFlags();
-  const mounted = useMounted();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (!mounted || !features.ENABLE_3D) {
     return null;

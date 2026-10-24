@@ -188,42 +188,29 @@
 }
 
 .headlineRole {
-  font-size: clamp(1.85rem, 5.2vw, 4.2rem);
+  font-size: clamp(2.5rem, 5.4vw, 4.4rem);
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.12;
   letter-spacing: -0.03em;
-  margin: 0.2rem 0 0.85rem 0;
-  word-break: break-word;
+  margin: 0.25rem 0;
 }
 
-.supportingText {
-  font-size: clamp(0.95rem, 1.9vw, 1.25rem);
-  font-weight: 400;
-  color: var(--text-secondary, #d4d4d8);
-  line-height: 1.62;
-  letter-spacing: -0.01em;
-  max-width: 640px;
-  margin: 0 0 var(--space-5, 1.25rem) 0;
+.rotatingWordWrapper {
+  font-size: clamp(3.4rem, 8.2vw, 6.4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0.25rem 0;
 }
 
-.focusTag {
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: var(--text-xs, 0.75rem);
-  font-family: var(--font-mono, monospace);
-  color: var(--text-muted, #a1a1aa);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-full, 9999px);
-  margin-bottom: var(--space-8, 2rem);
-}
-
-.rotatingWordHighlight {
-  color: var(--accent-cyan, #38bdf8);
+.punchline {
+  font-size: clamp(1.75rem, 3.8vw, 2.85rem);
   font-weight: 600;
+  color: var(--text-secondary, #d4d4d8);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin: 0.25rem 0 var(--space-8, 2rem) 0;
 }
 
 .actionButtons {
@@ -232,19 +219,6 @@
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: var(--space-8, 2rem);
-}
-
-@media (max-width: 480px) {
-  .actionButtons {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .actionButtons > * {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-  }
 }
 
 .metadataRow {

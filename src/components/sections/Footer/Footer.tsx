@@ -4,7 +4,8 @@ import { Container } from "@/components/ui";
 
 /**
  * Footer Component
- * 
+ * Phase 02 - Personal Information, Visual Identity & Initial Motion
+ *
  * Minimalist, dark-cinematic footer with copyright and verified social links.
  */
 export function Footer() {
@@ -37,7 +38,7 @@ export function Footer() {
         >
           <div>
             <p>
-              © {currentYear} {personal.name} · Frontend &amp; Creative Developer
+              © {personal.name} · Designed & Engineered
             </p>
           </div>
 
@@ -45,41 +46,30 @@ export function Footer() {
             style={{
               display: "flex",
               gap: "var(--space-6, 1.5rem)",
-              listStyle: "none",
-              margin: 0,
-              padding: 0,
-              flexWrap: "wrap",
             }}
           >
-            {personal.socials.github && (
-              <li>
-                <a
-                  href={personal.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-link"
-                >
-                  GitHub ↗
-                </a>
-              </li>
-            )}
-            {personal.socials.instagram && (
-              <li>
-                <a
-                  href={personal.socials.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-link"
-                >
-                  Instagram ↗
-                </a>
-              </li>
-            )}
-            <li>
-              <a href={`mailto:${personal.email}`} className="footer-link">
-                Email ↗
-              </a>
-            </li>
+            {Object.entries(personal.socials)
+              .filter(
+                ([platform, url]) =>
+                  Boolean(url) &&
+                  platform !== "github" &&
+                  platform !== "linkedin"
+              )
+              .map(([platform, url]) => {
+                return (
+                  <li key={platform}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer-link"
+                      style={{ textTransform: "capitalize" }}
+                    >
+                      {platform} ↗
+                    </a>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </Container>

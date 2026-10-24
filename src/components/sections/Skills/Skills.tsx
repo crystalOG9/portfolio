@@ -17,12 +17,12 @@ export function Skills() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const filterTabs = [
-    { id: "all", label: "All Skills" },
+    { id: "all", label: "All Capabilities" },
     { id: "frontend", label: "Frontend" },
-    { id: "creative", label: "Creative & 3D" },
-    { id: "tools", label: "AI, Automation & Tools" },
-    { id: "programming", label: "Core Languages" },
     { id: "backend", label: "Backend & DB" },
+    { id: "creative", label: "Creative & 3D" },
+    { id: "programming", label: "Languages" },
+    { id: "tools", label: "Tools & Platforms" },
   ];
 
   const displayedCategories =

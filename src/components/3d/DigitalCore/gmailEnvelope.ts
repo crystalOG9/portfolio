@@ -324,7 +324,7 @@ export function createGmailMorphSystem(): GmailMorphSystem {
           const ty = targetPositions[i3 + 1];
           const tz = targetPositions[i3 + 2];
 
-          const posX = ex + (tx - ex) * smoothT;
+          let posX = ex + (tx - ex) * smoothT;
           let posY = ey + (ty - ey) * smoothT;
           let posZ = ez + (tz - ez) * smoothT;
 
